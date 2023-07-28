@@ -1,0 +1,64 @@
+in init_kind
+
+ export VERSION=v1.22.0
+    curl -LO "https://dl.k8s.io/release/$VERSION/bin/linux/amd64/kubectl" 
+
+to increase the space of c9
+pip3 install --user --upgrade boto3
+export instance_id=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
+python -c "import boto3
+import os
+from botocore.exceptions import ClientError 
+ec2 = boto3.client('ec2')
+volume_info = ec2.describe_volumes(
+    Filters=[
+        {
+            'Name': 'attachment.instance-id',
+            'Values': [
+                os.getenv('instance_id')
+            ]
+        }
+    ]
+)
+volume_id = volume_info['Volumes'][0]['VolumeId']
+try:
+    resize = ec2.modify_volume(    
+            VolumeId=volume_id,    
+            Size=30
+    )
+    print(resize)
+except ClientError as e:
+    if e.response['Error']['Code'] == 'InvalidParameterValue':
+        print('ERROR MESSAGE: {}'.format(e))"
+if [ $? -eq 0 ]; then
+    sudo reboot
+fi
+
+
+
+--delete existing cluste
+kind delete cluster --name kind
+
+--list clusters
+kind get clusters
+
+#to delete pods starting with mock-app
+
+kubectl delete pods -l app=mock-app
+
+#to delete all the pods in namespace
+kubectl delete pods --all -n test
+
+
+If everything is set up correctly, you should see the application's response in your web browser.
+
+Step 4: Cleanup (Optional):
+
+After verifying the application's accessibility, you can stop the port forwarding by pressing CTRL + C in the terminal where the port forwarding command is running.
+
+Additionally, you can delete the resources (Deployment and Service) if you no longer need them using the following commands:
+
+bash
+Copy code
+kubectl delete service node-app -n test
+kubectl delete deployment clo835-mock -n test

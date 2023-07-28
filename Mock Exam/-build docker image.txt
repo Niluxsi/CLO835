@@ -1,0 +1,66 @@
+-build docker image
+docker build -t app-image -f app/Dockerfile_mock app
+
+-now check docker images:
+docker images
+
+-run init_kind.sh
+chmod 700 init_kind.sh
+./init_kind.sh
+
+-run container of image 'app-image'
+docker run -d --name application1 -p 8081:8081 app-image
+docker ps
+curl localhost:8081
+
+
+
+
+Step 4: Publish the Docker Image to Amazon ECR
+
+4.1 Login to your ECR registry using the AWS CLI:
+aws ecr get-login-password --region <your-preferred-region> | docker login --username AWS --password-stdin <your-account-id>.dkr.ecr.<your-preferred-region>.amazonaws.com
+
+eg: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 745655567840.dkr.ecr.us-east-1.amazonaws.com
+
+Create the ECR Repository:
+aws ecr create-repository --repository-name mock-repo
+
+4.2 Tag your local Docker image with the ECR repository URI:
+docker tag your-ecr-repo/your-image-tag:latest <your-account-id>.dkr.ecr.<your-preferred-region>.amazonaws.com/your-ecr-repo:your-image-tag
+
+docker tag <image-id> 745655567840.dkr.ecr.us-east-1.amazonaws.com/mock-repo:app-image
+
+docker tag ea37e26b4857 745655567840.dkr.ecr.us-east-1.amazonaws.com/mock-repo:app-image
+
+4.3 Push the Docker image to ECR:
+docker push <your-account-id>.dkr.ecr.<your-preferred-region>.amazonaws.com/your-ecr-repo:your-image-tag
+
+docker push 745655567840.dkr.ecr.us-east-1.amazonaws.com/mock-repo:app-image 
+
+
+kubectl apply -f persistentVolumeClaim.yaml   
+
+
+Create the Deployment:
+
+kubectl apply -f deployment.yaml -n test
+
+Verify Deployment, ReplicaSet, and Pod:
+
+kubectl get deployments -n test
+kubectl get replicasets -n test
+kubectl get pods -n test
+
+kubectl apply -f serviceClusterIp.yaml -n test
+kubectl apply -f serviceNodePort.yaml -n test
+
+kubectl get services -n mock
+
+
+
+
+
+
+
+
