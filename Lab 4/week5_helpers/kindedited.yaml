@@ -1,0 +1,30 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+  image: kindest/node:v1.19.11@sha256:07db187ae84b4b7de440a73886f008cf903fcf5764ba8106a9fd5243d6f32729
+  extraPortMappings:
+  - containerPort: 30000
+    hostPort: 30000
+  - containerPort: 30001
+    hostPort: 30001
+
+version: '3'
+services:
+  redis:
+    image: redis:alpine
+    container_name: mysql
+    network_mode: bridge
+    expose:
+      - 3306
+
+  next-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: monara
+    network_mode: bridge
+    ports:
+      - '8080:3000'
+    links:
+      - redis
