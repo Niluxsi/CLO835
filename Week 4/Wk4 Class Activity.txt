@@ -1,0 +1,444 @@
+voclabs:~/environment $ docker rmi -f $(docker images -aq)
+
+"docker rmi" requires at least 1 argument.
+See 'docker rmi --help'.
+
+Usage:  docker rmi [OPTIONS] IMAGE [IMAGE...]
+
+Remove one or more images
+voclabs:~/environment $ 
+voclabs:~/environment $ curl -sLo kind https://kind.sigs.k8s.io/dl/v0.11.0/kind-linux-amd64
+voclabs:~/environment $ sudo install -o root -g root -m 0755 kind /usr/local/bin/kind 
+voclabs:~/environment $ rm -f ./kind
+voclabs:~/environment $ curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.21.14/2023-01-30/bin/darwin/amd64/kubectl
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--Remove one or more imagesvoclabs:~/environment $ voclabs:~/environment $ curl -sLo kind https://kind.sigs.k8s.io/dl/v0.11.0/kind-linux-amd64                                                voclabs:~/environment $ sudo install -o root -g root -m 0755 kind /usr/local/bin/kind                            voclabs:~/environment $ rm -f ./kind
+voclabs:~/environment $ curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.21.14/2023-01-30/bin/darwin/amd64/kubectl                                                  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed                                                  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--  4 50.4M    4 2104k    0     0  2323k      0  0:00:22 --:--:--  0:00 48 50.4M   48 24.5M    0     0  12.9M      0  0:00:03  0:00:01  0:00 93 50.4M   93 47.1M    0     0  16.2M      0  0:00:03  0:00:02  0:00100 50.4M  100 50.4M    0     0  16.3M      0  0:00:03  0:00:03 --:--:-- 16.3M      voclabs:~/environment $ curl -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.21.2/2021-07-05/bin/linux/amd64/kubectl
+  % Total    % Received % Xferd  Average Speed   Time    Time     Tim  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current                                 Dload  Upload   Total   Spent    Left  Speed  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--  0 44.2M    0  1512    0     0   3940      0  3:16:17 --:--:--  3:16 31 44.2M   31 14.1M    0     0  10.2M      0  0:00:04  0:00:01  0:00 83 44.2M   83 36.8M    0     0  15.4M      0  0:00:02  0:00:02 --:--100 44.2M  100 44.2M    0     0  16.5M      0  0:00:02  0:00:02 --:--:-- 16.5M
+voclabs:~/environment $ chmod +x ./kubectl
+voclabs:~/environment $ mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
+voclabs:~/environment $ echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
+voclabs:~/environment $ kubectl version --short --client
+Client Version: v1.21.2-13+d2965f0db10712
+voclabs:~/environment $ cat > kind.yaml <<EOF
+> kind: Cluster
+> apiVersion: kind.x-k8s.io/v1alpha4
+> nodes:
+> - role: control-plane
+>   image: kindest/node:v1.19.11@sha256:07db187ae84b4b7de440a73886f008cf903fcf5764ba8106a9fd5243d6f32729
+>   extraPortMappings:
+>   - containerPort: 30000
+>     hostPort: 30000
+>   - containerPort: 30001
+>     hostPort: 30001
+> EOF
+voclabs:~/environment $ kind create cluster --config kind.yaml
+bash: kind: command not found
+voclabs:~/environment $ kind
+bash: kind: command not found
+voclabs:~/environment $ sudo install -o root -g root -m 0755 kind /usr/local/bin/kind
+install: cannot stat ‘kind’: No such file or directory
+voclabs:~/environment $ kindbash: kind: command not found
+voclabs:~/environment $ curl -sLo kind https://kind.sigs.k8s.io/dl/v0.11.0/kind-linux-amd64
+voclabs:~/environment $ sudo install -o root -g root -m 0755 kind /usr/local/bin/kind
+voclabs:~/environment $ kind
+kind creates and manages local Kubernetes clusters using Docker container 'nodes'
+
+Usage:
+  kind [command]
+
+Available Commands:
+  build       Build one of [node-image]
+  completion  Output shell completion code for the specified shell (bash, zsh or fish)
+  create      Creates one of [cluster]
+  delete      Deletes one of [cluster]
+  export      Exports one of [kubeconfig, logs]
+  get         Gets one of [clusters, nodes, kubeconfig]
+  help        Help about any command
+  load        Loads images into nodes
+  version     Prints the kind CLI version
+
+Flags:
+  -h, --help              help for kind
+      --loglevel string   DEPRECATED: see -v instead
+  -q, --quiet             silence all stderr output
+  -v, --verbosity int32   info log verbosity
+      --version           version for kind
+
+Use "kind [command] --help" for more information about a command.
+voclabs:~/environment $ kind create cluster --config kind.yaml
+Creating cluster "kind" ...
+ ✓ Ensuring node image (kindest/node:v1.19.11) 🖼 
+ ✓ Preparing nodes 📦  
+ ✓ Writing configuration 📜 
+ ✓ Starting control-plane 🕹️ 
+ ✓ Installing CNI 🔌 
+ ✓ Installing StorageClass 💾 
+Set kubectl context to "kind-kind"
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-kind
+
+Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
+voclabs:~/environment $ kubectl run nginx --image=nginx
+pod/nginx created
+voclabs:~/environment $ --port=80
+Error from server (AlreadyExists): pods "nginx" already exists
+voclabs:~/environment $ kubectl get pods
+NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          77s
+voclabs:~/environment $ k expose pod nginx --type=NodePort --name nginx-http
+bash: k: command not found
+voclabs:~/environment $ kubectl expose pod nginx --type=NodePort --name nginx-http
+error: couldn't find port via --port flag or introspection
+See 'kubectl expose -h' for help and examples
+voclabs:~/environment $ kubectl run nginx --image=nginx --port=80    
+Error from server (AlreadyExists): pods "nginx" already exists
+voclabs:~/environment $ kubectl delete pod <pod-name>
+bash: syntax error near unexpected token `newline'
+voclabs:~/environment $ kubectl delete pod nginx
+pod "nginx" deleted
+voclabs:~/environment $ kubectl run nginx --image=nginx --port=80
+pod/nginx created
+voclabs:~/environment $ kubectl get pods                             
+NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          8s
+voclabs:~/environment $ kubectl run nginx --image=nginx --port=80    
+Error from server (AlreadyExists): pods "nginx" already exists
+voclabs:~/environment $ kubectl get services
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   7m43s
+voclabs:~/environment $ kubectl expose pod nginx --type=NodePort --name nginx-http
+service/nginx-http exposed
+voclabs:~/environment $ kubectl get services
+NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+kubernetes   ClusterIP   10.96.0.1      <none>        443/TCP        9m42s
+nginx-http   NodePort    10.96.53.254   <none>        80:31630/TCP   16s
+voclabs:~/environment $ docker ps
+CONTAINER ID   IMAGE                   COMMAND                  CREATED          STATUS          PORTS                                                             NAMES
+ecc60dc460bc   kindest/node:v1.19.11   "/usr/local/bin/entr…"   11 minutes ago   Up 11 minutes   0.0.0.0:30000-30001->30000-30001/tcp, 127.0.0.1:38223->6443/tcp   kind-control-plane
+voclabs:~/environment $ docker inspect
+"docker inspect" requires at least 1 argument.
+See 'docker inspect --help'.
+
+Usage:  docker inspect [OPTIONS] NAME|ID [NAME|ID...]
+
+Return low-level information on Docker objects
+voclabs:~/environment $ docker inspect ecc
+[
+    {
+        "Id": "ecc60dc460bc551fe06607e736fc5f5acdb177521c1d253614e87dff5f65cc76",
+        "Created": "2023-06-02T18:47:06.310751359Z",
+        "Path": "/usr/local/bin/entrypoint",
+        "Args": [
+            "/sbin/init"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 32426,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2023-06-02T18:47:16.836205343Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:35fa4390eed32ba82ef725244f9914881ac21a62532c823c868d7081d5a8a297",
+        "ResolvConfPath": "/var/lib/docker/containers/ecc60dc460bc551fe06607e736fc5f5acdb177521c1d253614e87dff5f65cc76/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/ecc60dc460bc551fe06607e736fc5f5acdb177521c1d253614e87dff5f65cc76/hostname",
+        "HostsPath": "/var/lib/docker/containers/ecc60dc460bc551fe06607e736fc5f5acdb177521c1d253614e87dff5f65cc76/hosts",
+        "LogPath": "/var/lib/docker/containers/ecc60dc460bc551fe06607e736fc5f5acdb177521c1d253614e87dff5f65cc76/ecc60dc460bc551fe06607e736fc5f5acdb177521c1d253614e87dff5f65cc76-json.log",
+        "Name": "/kind-control-plane",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/lib/modules:/lib/modules:ro",
+                "/dev/mapper:/dev/mapper"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "kind",
+            "PortBindings": {
+                "30000/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "30000"
+                    }
+                ],
+                "30001/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "30001"
+                    }
+                ],
+                "6443/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "38223"
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "on-failure",
+                "MaximumRetryCount": 1
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "host",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": true,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": [
+                "seccomp=unconfined",
+                "apparmor=unconfined",
+                "label=disable"
+            ],
+            "Tmpfs": {
+                "/run": "",
+                "/tmp": ""
+            },
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "KernelMemory": 0,
+            "KernelMemoryTCP": 0,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": false,
+            "PidsLimit": null,
+            "Ulimits": [
+                {
+                    "Name": "nofile",
+                    "Hard": 65536,
+                    "Soft": 32768
+                }
+            ],
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": null,
+            "ReadonlyPaths": null,
+            "Init": false
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/bd058b55a2f635bc7ae226b096649f3725853937b1b3f959768764f5270ac8b5-init/diff:/var/lib/docker/overlay2/a14e1ece484531bb28bba53a8d916bfd48587e9fc223041292f643a0ee611baf/diff:/var/lib/docker/overlay2/97642947fff80a1276653d6105e5946c2122e996a6fcf7a40742407331914852/diff:/var/lib/docker/overlay2/60d5bcc4623e55f7962872b2c5d24ced7113675a9fa83315b0ae82f2d42aded5/diff:/var/lib/docker/overlay2/e85d56a28863155553dae8fe984f23f32a903e41846255eb670b975d98c877d3/diff:/var/lib/docker/overlay2/d4ac7c4801e053e51d65112796e1b0248969dfc50e0ff585e5f58cce3ea73e67/diff:/var/lib/docker/overlay2/89c4f18b03b1a86c7bf40c6f59bd03676be9f05f63f8252614f4a84280e4e24e/diff:/var/lib/docker/overlay2/60a079dffffe781b64236a187b6732df0578de2083e4fd18aed2b3f83909b1a7/diff:/var/lib/docker/overlay2/8efae2450e0c00961e709801e2c4df244b63891a229147ecdc38669a2896fdf4/diff:/var/lib/docker/overlay2/f6b7106c9cf91521ebb74e303cfa561dbe020b74277d15da7a76828f058a1f0b/diff:/var/lib/docker/overlay2/e55a8426484e0dea0496aa0495e335f82e6a0673f9dc092aa9e324305b3cf887/diff:/var/lib/docker/overlay2/0e800bbede3d330dc9640df9d6cfa37e31c1f62c9da279d250382479323c1806/diff:/var/lib/docker/overlay2/f2997c72f2d73a94c0085889eb54a7e577de8da46eda21fe6ab886773158b37b/diff",
+                "MergedDir": "/var/lib/docker/overlay2/bd058b55a2f635bc7ae226b096649f3725853937b1b3f959768764f5270ac8b5/merged",
+                "UpperDir": "/var/lib/docker/overlay2/bd058b55a2f635bc7ae226b096649f3725853937b1b3f959768764f5270ac8b5/diff",
+                "WorkDir": "/var/lib/docker/overlay2/bd058b55a2f635bc7ae226b096649f3725853937b1b3f959768764f5270ac8b5/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "732210d019b6e7bb7ccd9f7d0414f6ba93d65bf6dacc2826c4b8d3c68057c2c5",
+                "Source": "/var/lib/docker/volumes/732210d019b6e7bb7ccd9f7d0414f6ba93d65bf6dacc2826c4b8d3c68057c2c5/_data",
+                "Destination": "/var",
+                "Driver": "local",
+                "Mode": "",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/lib/modules",
+                "Destination": "/lib/modules",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/dev/mapper",
+                "Destination": "/dev/mapper",
+                "Mode": "",
+                "RW": true,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "kind-control-plane",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "30000/tcp": {},
+                "30001/tcp": {},
+                "6443/tcp": {}
+            },
+            "Tty": true,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "KUBECONFIG=/etc/kubernetes/admin.conf",
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "container=docker"
+            ],
+            "Cmd": null,
+            "Image": "kindest/node:v1.19.11@sha256:07db187ae84b4b7de440a73886f008cf903fcf5764ba8106a9fd5243d6f32729",
+            "Volumes": {
+                "/var": {}
+            },
+            "WorkingDir": "",
+            "Entrypoint": [
+                "/usr/local/bin/entrypoint",
+                "/sbin/init"
+            ],
+            "OnBuild": null,
+            "Labels": {
+                "io.x-k8s.kind.cluster": "kind",
+                "io.x-k8s.kind.role": "control-plane"
+            },
+            "StopSignal": "SIGRTMIN+3"
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "577c6f48a3e8ebf4c0b180008c98000efe92ae0291ddfbea347f57a95538a5fa",
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "Ports": {
+                "30000/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "30000"
+                    }
+                ],
+                "30001/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "30001"
+                    }
+                ],
+                "6443/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "38223"
+                    }
+                ]
+            },
+            "SandboxKey": "/var/run/docker/netns/577c6f48a3e8",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "",
+            "Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "MacAddress": "",
+            "Networks": {
+                "kind": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": [
+                        "ecc60dc460bc",
+                        "kind-control-plane"
+                    ],
+                    "NetworkID": "45a88b89ad0043a124de363e778f39e82867aaefc12246ea6fcf7cac866c8c12",
+                    "EndpointID": "9c7f9033a7afcc12aadfa40b08e90e4d4bb049fb9f597e577831cb8dbca3503a",
+                    "Gateway": "172.18.0.1",
+                    "IPAddress": "172.18.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "fc00:f853:ccd:e793::1",
+                    "GlobalIPv6Address": "fc00:f853:ccd:e793::2",
+                    "GlobalIPv6PrefixLen": 64,
+                    "MacAddress": "02:42:ac:12:00:02",
+                    "DriverOpts": null
+                }
+            }
+        }
+    }
+]
+voclabs:~/environment $ kubectl get services
+NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+kubernetes   ClusterIP   10.96.0.1      <none>        443/TCP        11m
+nginx-http   NodePort    10.96.53.254   <none>        80:31630/TCP   113s
+voclabs:~/environment $ curl 172.18.0.2
+curl: (7) Failed to connect to 172.18.0.2 port 80 after 0 ms: Couldn't connect to server
+voclabs:~/environment $ curl 172.18.0.2: 31630
+curl: (3) URL using bad/illegal format or missing URL
+curl: (7) Failed to connect to 0.0.123.142 port 80 after 0 ms: Couldn't connect to server
+voclabs:~/environment $ curl 172.18.0.2:31630                                                                                                                                             
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+voclabs:~/environment $ 
