@@ -19,9 +19,11 @@ docker ps
 curl localhost:8081
 
 
-aws configure set aws_access_key_id ASIA23HEJAXQKWPHVGOS
-aws configure set aws_secret_access_key 5mvRzDIGoY5+2bldofqIR8HhzdsnaSz8sZnu+IxG
-aws configure set aws_session_token T//////////wEaDHFW8G6L4q1FJyBegCLGAXOJH3iV78cbMacQGMjBqnEb1UDepryKxl2dU3LIkDHqKwYxAiNOsADBCFWSnZwIswORtiH/Y6DvpEZsDzKOaIquWP0rv2AaariawgFHL4louykAZBNDL6Yiek3M8OVeguCRBJYGPJBDGSdgUadAuPWEOAS8Qm9YeesgDuv+HK/BvQw3SeCE8oTb5Fb/FQu74tL/aLmdp6fIE7GNEfqMVYw6cDxHZLh08OjscBdbTtjPQYngCuIOid1MZzcJ5pnRbrYTBc6e7yiC2oymBjItipT09USgcIfnQ/cHnyQdeOSRDTrKeVmG3QWDuILF0YNPg21OBlLJ864DC6+P
+aws configure set aws_access_key_id 
+aws configure set aws_secret_access_key 
+aws configure set aws_session_token 
+
+
 
 nano ~/.aws/credentials
 
